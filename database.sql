@@ -4,7 +4,7 @@ CREATE SCHEMA PUBLIC;
 CREATE TYPE privilege_enum AS enum ('student', 'administrator');
 
 
-CREATE TABLE user(
+CREATE TABLE users(
   user_id serial PRIMARY KEY,
   privilege_type privilege_enum NOT NULL,
   user_name varchar(30) NOT NULL,
