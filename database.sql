@@ -1,6 +1,3 @@
-CREATE SCHEMA PUBLIC;
-
-
 CREATE TYPE privilege_enum AS enum ('student', 'administrator');
 
 
