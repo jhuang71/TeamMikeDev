@@ -1,25 +1,33 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React from "react";
+import "./App.css";
+import Building from "./Building";
+import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
+import { Navbar } from "react-bootstrap";
+import logo from "./img/logo.png";
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Team Mike
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React - From Team Mike
-        </a>
-      </header>
-    </div>
+    <Router>
+      <Navbar bg="light">
+        <Navbar.Brand>
+          <Link to="/">
+            <img
+            alt=""
+            src={logo}
+            width="230"
+            height="60"
+            className="d-inline-block align-top"
+            />{" "}
+          </Link>
+        </Navbar.Brand>
+      </Navbar>
+      <div className="App">
+        <Switch>
+          <Route path="/" exact />
+          <Route path="/:building" component={Building} />
+        </Switch>
+      </div>
+    </Router>
   );
 }
 
