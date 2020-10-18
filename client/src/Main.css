@@ -1,0 +1,110 @@
+#page-wrap {
+  width: 1300px;
+  margin: 0 auto;
+}
+
+#page-wrap a {
+  font-size: 0;
+}
+
+.moveimage {
+  position: relative;
+  margin-left: 5px;
+  top: 68px;
+}
+
+.iitImage {
+  margin-top: 1em;
+  margin-bottom: 4em;
+}
+
+.title {
+  margin-top: 100px;
+  margin-bottom: 90px;
+}
+
+figure.building {
+  font-family: Verdana, sans-serif;
+  margin: 10px;
+  max-width: 300px;
+  max-height: 200px;
+  width: 100%;
+  color: #ffffff;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+  background: rgb(117, 0, 0);
+  display: inline-block;
+  -webkit-transition: all 0.5s ease-out;
+  transition: all 0.5s ease-out;
+}
+
+figure.building * {
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+  -webkit-transition: all 0.5s ease-out;
+  transition: all 0.5s ease-out;
+}
+
+figure.building img {
+  max-width: 100%;
+  position: relative;
+  opacity: 0.4;
+}
+
+figure.building figcaption {
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+}
+
+figure.building h2 {
+  position: absolute;
+  left: 50px;
+  right: 50px;
+  text-shadow: 0 0 3px #000000, 0 0 5px #770000;
+  padding: 5px 10px 5px 5px;
+  margin-right: 20px;
+  top: 50%;
+  text-transform: uppercase;
+  font-weight: 500;
+  -webkit-transform: skew(-15deg) translate(0, -50%);
+  transform: skew(-15deg) translate(0, -50%);
+  transition-duration: 1s;
+}
+
+figure.building:before {
+  height: 100%;
+  width: 100%;
+  content: "";
+  background: #ffffff;
+  position: absolute;
+  -webkit-transition: all 0.5s ease-out;
+  transition: all 0.5s ease-out;
+  -webkit-transform: rotate(146.3deg) translateY(-61%) translateY(0.75%)
+    scale(1.2, 1.2);
+  transform: rotate(146.3deg) translateY(-61%) translateY(0.75%) scale(1.2, 1.2);
+}
+
+figure.building a {
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  position: absolute;
+}
+
+figure.building:hover img,
+figure.building.hover img {
+  opacity: 1;
+  -webkit-transform: scale(1.25);
+  transform: scale(1.25);
+}
+
+figure.building:hover:before,
+figure.building.hover:before {
+  -webkit-transition: all 0.5s ease-out;
+  transition: all 0.5s ease-out;
+}

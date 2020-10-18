@@ -1,29 +1,19 @@
 import React from "react";
 import "./App.css";
 import Building from "./Building";
-import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
-import { Navbar } from "react-bootstrap";
-import logo from "./img/logo.png";
+import { BrowserRouter as Router, Switch, Route} from "react-router-dom";
+import Main from "./Main"
+import iit from './images/iit.png';
+
 
 function App() {
   return (
     <Router>
       <div className="App">
-        <Navbar bg="light">
-          <Navbar.Brand>
-            <Link to="/">
-              <img
-              alt=""
-              src={logo}
-              width="230"
-              height="60"
-              className="d-inline-block"
-              />{" "}
-            </Link>
-          </Navbar.Brand>
-        </Navbar>
+      <a href="/"><img src={iit} width="500" alt="iit logo" height="110" class="iitImage"/></a>
+
         <Switch>
-          <Route path="/" exact />
+          <Route path="/" exact component={Main} />
           <Route path="/:building" component={Building} />
         </Switch>
       </div>

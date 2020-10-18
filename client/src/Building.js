@@ -12,7 +12,7 @@ export default function Building() {
     // list of study spaces
     const spaces = []
 
-    const [modalShow, setModalShow] = React.useState(false);
+    const [modalShow, setModalShow] = useState(false);
 
     for (var i = 0; i < 8; i++) {
         spaces.push(
