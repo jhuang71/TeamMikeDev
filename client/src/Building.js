@@ -1,7 +1,8 @@
 import React, { useState }  from 'react';
 import { useParams } from "react-router-dom";
-import {Card, Button, ListGroup, ListGroupItem} from 'react-bootstrap';
+import {Card, Button, ListGroup, ListGroupItem, Image} from 'react-bootstrap';
 import space1 from './img/space1.jpg';
+import hh from './img/HH-1620X1080.jpg';
 import ReservePopUp from './ReservePopUp';
 
 export default function Building() {
@@ -44,7 +45,10 @@ export default function Building() {
     }
     return (
         <div>
-            <h1>{id.building}</h1>
+            <div className="buildingHeader">
+                <Image style={{opacity:"0.9"}}src={hh} fluid />
+                <h1 className="centered">{id.building.toUpperCase()}</h1>
+            </div>
             {spaces}
         </div>
     )
