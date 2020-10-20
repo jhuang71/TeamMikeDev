@@ -1,40 +1,26 @@
-h1 {
-    color:#212121;
-    text-align: center;
-    font:Helvetica;
-    font-weight: bold;
-    font-size: 50px;
-  }
-
-html {
-    height: 100%;
+#page-wrap {
+  width: 1300px;
+  margin: 0 auto;
 }
 
-body {
-    justify-content: center;
-    flex-flow: wrap;
-    height: 100%;
-  }
-
-#page-wrap {
-    width: 1300px;
-    margin: 0 auto;
+#page-wrap a {
+  font-size: 0;
 }
 
 .moveimage {
-    position: relative;
-    margin-left:5px;
-    top: 68px;
+  position: relative;
+  margin-left: 5px;
+  top: 68px;
 }
 
 .iitImage {
-    margin-top: 10px;
-    margin-left: 10px;
+  margin-top: 1em;
+  margin-bottom: 4em;
 }
 
 .title {
-    margin-top: 100px;
-    margin-bottom: 90px;
+  margin-top: 100px;
+  margin-bottom: 90px;
 }
 
 figure.building {
@@ -54,11 +40,11 @@ figure.building {
 }
 
 figure.building * {
-    -webkit-box-sizing: border-box;
-    box-sizing: border-box;
-    -webkit-transition: all 0.5s ease-out;
-    transition: all 0.5s ease-out;
-  }
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+  -webkit-transition: all 0.5s ease-out;
+  transition: all 0.5s ease-out;
+}
 
 figure.building img {
   max-width: 100%;
@@ -75,30 +61,31 @@ figure.building figcaption {
 }
 
 figure.building h2 {
-    position: absolute;
-    left: 50px;
-    right: 50px;
-    text-shadow: 0 0 3px #000000, 0 0 5px #770000;
-    padding: 5px 10px 5px 5px;
-    margin-right: 20px;
-    top: 50%;
-    text-transform: uppercase;
-    font-weight: 500;
-    -webkit-transform: skew(-15deg) translate(0, -50%);
-    transform: skew(-15deg) translate(0, -50%);
-    transition-duration: 1s;
-  }
+  position: absolute;
+  left: 50px;
+  right: 50px;
+  text-shadow: 0 0 3px #000000, 0 0 5px #770000;
+  padding: 5px 10px 5px 5px;
+  margin-right: 20px;
+  top: 50%;
+  text-transform: uppercase;
+  font-weight: 500;
+  -webkit-transform: skew(-15deg) translate(0, -50%);
+  transform: skew(-15deg) translate(0, -50%);
+  transition-duration: 1s;
+}
 
 figure.building:before {
   height: 100%;
   width: 100%;
-  content: '';
+  content: "";
   background: #ffffff;
   position: absolute;
   -webkit-transition: all 0.5s ease-out;
   transition: all 0.5s ease-out;
-  -webkit-transform: rotate(146.3deg) translateY(-61%) translateY(.75%) scale(1.2,1.2);
-  transform: rotate(146.3deg) translateY(-61%) translateY(.75%) scale(1.2,1.2);
+  -webkit-transform: rotate(146.3deg) translateY(-61%) translateY(0.75%)
+    scale(1.2, 1.2);
+  transform: rotate(146.3deg) translateY(-61%) translateY(0.75%) scale(1.2, 1.2);
 }
 
 figure.building a {
@@ -107,7 +94,6 @@ figure.building a {
   top: 0;
   bottom: 0;
   position: absolute;
-  
 }
 
 figure.building:hover img,
@@ -119,6 +105,6 @@ figure.building.hover img {
 
 figure.building:hover:before,
 figure.building.hover:before {
-    -webkit-transition: all 0.5s ease-out;
-    transition: all 0.5s ease-out;
+  -webkit-transition: all 0.5s ease-out;
+  transition: all 0.5s ease-out;
 }

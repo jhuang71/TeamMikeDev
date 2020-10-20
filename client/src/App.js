@@ -1,25 +1,23 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React from "react";
+import "./App.css";
+import Building from "./Building";
+import { BrowserRouter as Router, Switch, Route} from "react-router-dom";
+import Main from "./Main"
+import iit from './images/iit.png';
+
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Team Mike
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React - From Team Mike
-        </a>
-      </header>
-    </div>
+    <Router>
+      <div className="App">
+      <a href="/"><img src={iit} width="500" alt="iit logo" height="110" class="iitImage"/></a>
+
+        <Switch>
+          <Route path="/" exact component={Main} />
+          <Route path="/:building" component={Building} />
+        </Switch>
+      </div>
+    </Router>
   );
 }
 
