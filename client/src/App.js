@@ -5,6 +5,7 @@ import ReserveForm from "./ReserveForm";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import Main from "./Main"
 import iit from './images/iit.png';
+import TestButton from "./TestButton";
 
 
 function App() {
@@ -18,6 +19,7 @@ function App() {
           <Route path="/ReserveForm" exact component={ReserveForm} />
           <Route path="/:building" component={Building} />
         </Switch>
+        <TestButton />
       </div>
     </Router>
   );
