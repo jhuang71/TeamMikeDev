@@ -15,8 +15,8 @@ import perlstein from './images/perlstein.jpg';
 import crown from './images/crown.jpg';
 
 import 'bootstrap/dist/css/bootstrap.min.css';
-                     
-                 
+
+
 class Main extends React.Component {
   render() {
     return (
@@ -25,99 +25,99 @@ class Main extends React.Component {
         </div>
 
         <figure class="building">
-          <img src={hermann} alt="hermann" width="300" height="200"/>
+          <img src={hermann} alt="hermann" width="300" height="200" />
           <figcaption>
             <h2>Hermann Hall</h2>
-          </figcaption>    
-          <a href="/hermann">_</a>             
+          </figcaption>
+          <a href="/hermann">_</a>
         </figure>
 
         <figure class="building">
-          <img src={mtcc} alt="temp" width="300" height="200"/>
+          <img src={mtcc} alt="temp" width="300" height="200" />
           <figcaption>
             <h2>MTCC</h2>
-          </figcaption>    
-          <a href="/">_</a>             
+          </figcaption>
+          <a href="/">_</a>
         </figure>
 
         <figure class="building">
-          <img src={tower} alt="temp" width="300" height="200"/>
+          <img src={tower} alt="temp" width="300" height="200" />
           <figcaption>
             <h2>IIT Tower</h2>
-          </figcaption>    
-          <a href="/">_</a>             
+          </figcaption>
+          <a href="/">_</a>
         </figure>
 
         <figure class="building">
-          <img src={pritzker} alt="temp" width="300" height="200"/>
+          <img src={pritzker} alt="temp" width="300" height="200" />
           <figcaption>
             <h2>Pritzker Center</h2>
-          </figcaption>    
-          <a href="/">_</a>             
+          </figcaption>
+          <a href="/">_</a>
         </figure>
 
         <figure class="building">
-          <img src={galvin} alt="temp" width="300" height="200"/>
+          <img src={galvin} alt="temp" width="300" height="200" />
           <figcaption>
             <h2>Galvin Library</h2>
-          </figcaption>    
-          <a href="/">_</a>             
+          </figcaption>
+          <a href="/">_</a>
         </figure>
 
         <figure class="building">
-          <img src={msv} alt="temp" width="300" height="200"/>
+          <img src={msv} alt="temp" width="300" height="200" />
           <figcaption>
             <h2>MSV</h2>
-          </figcaption>    
-          <a href="/">_</a>             
+          </figcaption>
+          <a href="/">_</a>
         </figure>
 
         <figure class="building">
-          <img src={stuart} alt="temp" width="300" height="200"/>
+          <img src={stuart} alt="temp" width="300" height="200" />
           <figcaption>
             <h2>Stuart Building</h2>
-          </figcaption>    
-          <a href="/">_</a>             
+          </figcaption>
+          <a href="/">_</a>
         </figure>
 
         <figure class="building">
-          <img src={engin} alt="temp" width="300" height="200"/>
+          <img src={engin} alt="temp" width="300" height="200" />
           <figcaption>
             <h2>Eng. Center</h2>
-          </figcaption>    
-          <a href="/">_</a>             
+          </figcaption>
+          <a href="/">_</a>
         </figure>
 
         <figure class="building">
-          <img src={kaplan} alt="temp" width="300" height="200"/>
+          <img src={kaplan} alt="temp" width="300" height="200" />
           <figcaption>
             <h2>Kaplan Institute</h2>
-          </figcaption>    
-          <a href="/">_</a>             
+          </figcaption>
+          <a href="/">_</a>
         </figure>
 
         <figure class="building">
-          <img src={wishnick} alt="temp" width="300" height="200"/>
+          <img src={wishnick} alt="temp" width="300" height="200" />
           <figcaption>
             <h2>Wishnick Hall</h2>
-          </figcaption>    
-          <a href="/">_</a>             
+          </figcaption>
+          <a href="/">_</a>
         </figure>
 
         <figure class="building">
-          <img src={perlstein} alt="temp" width="300" height="200"/>
+          <img src={perlstein} alt="temp" width="300" height="200" />
           <figcaption>
             <h2>Perlstein Hall</h2>
-          </figcaption>    
-          <a href="/">_</a>             
+          </figcaption>
+          <a href="/">_</a>
         </figure>
 
         <figure class="building">
-          <img src={crown} alt="temp" width="300" height="200"/>
+          <img src={crown} alt="temp" width="300" height="200" />
           <figcaption>
             <h2>Crown</h2>
-          </figcaption>    
-          <a href="/">_</a>             
+          </figcaption>
+          <a href="/">_</a>
         </figure>
       </div>
     );
@@ -125,5 +125,5 @@ class Main extends React.Component {
 }
 
 
- 
+
 export default Main;
