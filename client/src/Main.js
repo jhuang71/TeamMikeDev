@@ -37,7 +37,7 @@ class Main extends React.Component {
           <figcaption>
             <h2>MTCC</h2>
           </figcaption>    
-          <a href="/">_</a>             
+          <a href="/mtcc">_</a>             
         </figure>
 
         <figure class="building">
@@ -45,7 +45,7 @@ class Main extends React.Component {
           <figcaption>
             <h2>IIT Tower</h2>
           </figcaption>    
-          <a href="/">_</a>             
+          <a href="/iit_tower">_</a>             
         </figure>
 
         <figure class="building">
@@ -53,7 +53,7 @@ class Main extends React.Component {
           <figcaption>
             <h2>Pritzker Center</h2>
           </figcaption>    
-          <a href="/">_</a>             
+          <a href="/pritzker">_</a>             
         </figure>
 
         <figure class="building">
@@ -61,7 +61,7 @@ class Main extends React.Component {
           <figcaption>
             <h2>Galvin Library</h2>
           </figcaption>    
-          <a href="/">_</a>             
+          <a href="/galvin">_</a>             
         </figure>
 
         <figure class="building">
@@ -69,7 +69,7 @@ class Main extends React.Component {
           <figcaption>
             <h2>MSV</h2>
           </figcaption>    
-          <a href="/">_</a>             
+          <a href="/msv">_</a>             
         </figure>
 
         <figure class="building">
@@ -77,7 +77,7 @@ class Main extends React.Component {
           <figcaption>
             <h2>Stuart Building</h2>
           </figcaption>    
-          <a href="/">_</a>             
+          <a href="/stuart">_</a>             
         </figure>
 
         <figure class="building">
@@ -85,7 +85,7 @@ class Main extends React.Component {
           <figcaption>
             <h2>Eng. Center</h2>
           </figcaption>    
-          <a href="/">_</a>             
+          <a href="/Eng">_</a>             
         </figure>
 
         <figure class="building">
@@ -93,7 +93,7 @@ class Main extends React.Component {
           <figcaption>
             <h2>Kaplan Institute</h2>
           </figcaption>    
-          <a href="/">_</a>             
+          <a href="/kaplan">_</a>             
         </figure>
 
         <figure class="building">
@@ -101,7 +101,7 @@ class Main extends React.Component {
           <figcaption>
             <h2>Wishnick Hall</h2>
           </figcaption>    
-          <a href="/">_</a>             
+          <a href="/wishnick">_</a>             
         </figure>
 
         <figure class="building">
@@ -109,7 +109,7 @@ class Main extends React.Component {
           <figcaption>
             <h2>Perlstein Hall</h2>
           </figcaption>    
-          <a href="/">_</a>             
+          <a href="/perlstein">_</a>             
         </figure>
 
         <figure class="building">
@@ -117,7 +117,7 @@ class Main extends React.Component {
           <figcaption>
             <h2>Crown</h2>
           </figcaption>    
-          <a href="/">_</a>             
+          <a href="/crown">_</a>             
         </figure>
       </div>
     );

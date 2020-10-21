@@ -15,7 +15,7 @@ function App() {
 
         <Switch>
           <Route path="/" exact component={Main} />
-          <Route path="/:building" component={Building} />
+          <Route path="/:building" exact component={Building} />
         </Switch>
         <TestButton />
       </div>
