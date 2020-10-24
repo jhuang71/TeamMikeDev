@@ -38,6 +38,7 @@ export default function Building() {
                     <ReservePopUp
                         show={modalShow}
                         onHide={() => setModalShow(false)}
+                        building={id.building}
                     />
                 </Card.Body>
              </Card>
