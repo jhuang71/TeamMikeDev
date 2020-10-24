@@ -16,8 +16,8 @@ function App() {
 
         <Switch>
           <Route path="/" exact component={Main} />
-          <Route path="/ReserveForm" exact component={ReserveForm} />
-          <Route path="/:building" component={Building} />
+          <Route path="/:building" exact component={Building} />
+          <Route path="/:building/ReserveForm" exact component={ReserveForm} />
         </Switch>
         <TestButton />
       </div>
