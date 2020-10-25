@@ -6,6 +6,7 @@ import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import Main from "./Main"
 import iit from './images/iit.png';
 import TestButton from "./TestButton";
+import Confirmation from "./Confirmation";
 
 
 function App() {
@@ -17,6 +18,7 @@ function App() {
         <Switch>
           <Route path="/" exact component={Main} />
           <Route path="/ReserveForm" exact component={ReserveForm} />
+          <Route path="/Confirmation" exact component={Confirmation} />
           <Route path="/:building" component={Building} />
         </Switch>
         <TestButton />

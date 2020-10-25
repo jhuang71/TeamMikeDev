@@ -79,7 +79,7 @@ export default function ReserveForm() {
                     </Col>
                 </Form.Group>
                 <Col sm={5}>
-                    <Button variant="primary" type="submit">
+                    <Button href="/Confirmation" variant="primary" type="submit">
                         Submit
                     </Button>
                 </Col>
