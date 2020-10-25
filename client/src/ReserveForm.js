@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useParams } from "react-router-dom";
 import { Form, Image, Button, Row, Col } from 'react-bootstrap';
-import hh from './img/HH-1620X1080.jpg';
+import space1 from './img/space1.jpg';
 
 export default function ReserveForm() {
     const id = useParams();
@@ -20,10 +20,7 @@ export default function ReserveForm() {
 
     return (
         <div>
-            <div className="buildingHeader">
-                <Image style={{ opacity: "0.9" }} src={hh} fluid />
-                <h1 className="centered">{id.building}</h1>
-            </div>
+            <Image style={{opacity:"0.9"}}src={space1} fluid />
             <h2 class="text-left">Reservation Form</h2>
             <Form noValidate validated={validated} onSubmit={handleSubmit}>
                 <Form.Group as={Row} controlId="email">

@@ -2,6 +2,7 @@ import { Modal, Button } from 'react-bootstrap';
 import React from 'react'
 
 export default function ReservePopUp(props) {
+  var path = props.building.concat("/ReserveForm")
   return (
     <Modal
       {...props}
@@ -18,7 +19,7 @@ export default function ReservePopUp(props) {
         </p>
       </Modal.Body>
       <Modal.Footer>
-        <Button href="/ReserveForm" style={{ marginRight: '5em' }} >Yes, I would like to reserve the space</Button>
+        <Button href={path} style={{ marginRight: '5em' }} >Yes, I would like to reserve the space </Button>
         <Button style={{ marginRight: '13em' }} variant="secondary" onClick={props.onHide}>Close</Button>
       </Modal.Footer>
     </Modal >
