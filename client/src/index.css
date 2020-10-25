@@ -26,3 +26,11 @@ code {
   transform: translate(-50%, -50%);
   font-size: 4em;
 }
+
+.confirmation {
+  left: 50px;
+  right: 50px;
+  text-transform: uppercase;
+  font-weight: 500;
+  padding: 40px;
+}

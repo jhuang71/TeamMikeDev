@@ -6,6 +6,7 @@ import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import Main from "./Main";
 import iit from "./images/iit.png";
 import TestButton from "./TestButton";
+import Confirmation from "./Confirmation";
 import { GoogleLogin, GoogleLogout } from "react-google-login";
 
 const UnAuthView = ({ responseGoogle }) => {
@@ -85,6 +86,8 @@ function App() {
 
         <Switch>
           <Route path="/" exact component={Main} />
+          <Route path="/Confirmation" exact component={Confirmation} />
+          <Route path="/admin" component={TestButton} />
           <Route
             path="/building/:building"
             exact
@@ -96,7 +99,7 @@ function App() {
             exact
             component={ReserveForm}
           />
-          <Route path="/admin" component={TestButton} />
+
         </Switch>
       </div>
     </Router>
