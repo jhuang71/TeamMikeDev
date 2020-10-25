@@ -36,3 +36,21 @@
     transform: rotate(360deg);
   }
 }
+
+.GoogleButton {
+  float: right;
+  margin-top: 2.7%;
+  margin-right: 8%;
+  position: absolute;
+  top: 0;
+  right: 0;
+}
+
+.GoogleOutButton {
+  float: right;
+  margin-top: 2.7%;
+  margin-right: 8%;
+  position: absolute;
+  top: 0;
+  right: 0;
+}
