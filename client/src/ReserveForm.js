@@ -121,7 +121,7 @@ export default function ReserveForm() {
                         </Form.Group>
                     </Form.Group>
                 </Form.Row>
-                <Button variant="primary" type="submit">
+                <Button href = "/Confirmation" variant="primary" type="submit">
                     Submit
                     </Button>
             </Form>
