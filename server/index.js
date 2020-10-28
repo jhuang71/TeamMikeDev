@@ -42,6 +42,7 @@ app.post("/addUser", async (req, res) => {
     }
 });
 
+
 //create a reservation
 app.post("/reservation", async (req, res) => {
     try {
@@ -58,6 +59,31 @@ app.post("/reservation", async (req, res) => {
         });
     } catch (err) {
         console.log(err.message);
+      }
+});
+
+app.post("/endReservation", async (req, res) => {
+    try {
+        const results = await pool.query(
+            "UPDATE reservation SET res_end = to_timestamp($1) WHERE res_id = $2 AND student_id = $3",
+            [Date.now()/1000, req.body.res_id, req.body.student_id]
+        );
+        console.log(results.rowCount);
+        if (results.rowCount === 1) {
+            res.status(201).json({
+                status: "success",
+                data: {
+                    rows_updated: results.rowCount
+                }
+            });
+        }
+        else {
+            res.status(400).json({
+                status: "incompatible or invalid student and request id"
+            })
+        }
+    } catch (error) {
+        console.error(error.message);
     }
 });
 
