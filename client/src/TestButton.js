@@ -1,9 +1,30 @@
 import React, { Fragment } from "react";
 
 const TestButton = () => {
-    const onClickButton = async () => {
+    const onClickBuilding = async (e) => {
+        e.preventDefault();
         try {
-            const response = fetch("http://localhost:5000/test", {
+            const response = fetch("http://localhost:5000/addBuilding", {
+                method: "POST"
+            })
+        } catch (error) {
+            console.error(error.message);
+        }
+    }
+    const onClickSpace = async (e) => {
+        e.preventDefault();
+        try {
+            const response = fetch("http://localhost:5000/addSpace", {
+                method: "POST"
+            })
+        } catch (error) {
+            console.error(error.message);
+        }
+    }
+    const onClickUser = async (e) => {
+        e.preventDefault();
+        try {
+            const response = fetch("http://localhost:5000/addUser", {
                 method: "POST"
             })
         } catch (error) {
@@ -14,7 +35,9 @@ const TestButton = () => {
     return (
         <Fragment>
             <form>
-                <button onClick={onClickButton}>Add Hermann Hall To Database</button>
+                <button onClick={onClickBuilding}>Add Hermann Hall To Database</button>
+                <button onClick={onClickSpace}>Add Space (location = Hermann Hall) To Database</button>
+                <button onClick={onClickUser}>Add User To Database</button>
             </form>
         </Fragment>
     )
