@@ -42,15 +42,16 @@ const AuthView = ({ logout, user }) => {
 
 function App() {
   const [isAuth, setIsAuth] = useState(false);
-  const [user, setUser] = useState({ name: "", email: "", image: "" });
+  const [user, setUser] = useState({ name: "", email: "", image: "", googleID: "" });
 
   const responseGoogle = (res) => {
-    console.log(res);
     const profile = res.getBasicProfile();
+    console.log(profile)
     setUser({
       name: profile.getName(),
       email: profile.getEmail(),
       image: profile.getImageUrl(),
+      googleID: profile.getId()
     });
   };
 
@@ -60,10 +61,11 @@ function App() {
   }, [user]);
 
   const logout = () => {
-    setUser({ name: "", email: "", image: "" });
+    setUser({ name: "", email: "", image: "", googleID: "" });
     setIsAuth(false);
   };
 
+  
   return (
     <Router>
       <div className="App">
@@ -92,12 +94,11 @@ function App() {
             path="/building/:building"
             exact
             component={Building}
-            isAuthed={isAuth}
           />
           <Route
-            path="/building/:building/ReserveForm"
+            path="/building/:building/:spaceID/ReserveForm"
             exact
-            component={ReserveForm}
+            render={() => <ReserveForm isAuthed={isAuth} userProfile={user}/>}
           />
 
         </Switch>

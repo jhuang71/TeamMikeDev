@@ -7,6 +7,7 @@ import {
   ListGroupItem,
   Image,
   Badge,
+  Modal
 } from "react-bootstrap";
 import space1 from "./img/space1.jpg";
 import hh from "./img/HH-1620X1080.jpg";
@@ -17,17 +18,13 @@ export default function Building(props) {
   const id = useParams();
 
   // list of study spaces
-  const spaces = [];
-
-  // authenicated
-  const isActive = props.isAuthed;
-
+  const tempSpace = [1, 2, 3, 4, 5, 6, 7, 8];
   const [modalShow, setModalShow] = useState(false);
-  if (!isActive) {
-    console.log("false")
-  }
-  for (var i = 0; i < 8; i++) {
-    spaces.push(
+
+
+
+  const spaces = tempSpace.map((i) => {
+    return (
       <Card
         className="spaceCSS"
         style={{
@@ -41,7 +38,7 @@ export default function Building(props) {
       >
         <Card.Img variant="top" src={space1} />
         <Card.Body>
-          <Card.Title>Space {i + 1}</Card.Title>
+          <Card.Title>Space {i}</Card.Title>
           <Card.Text>
             Some quick example text to build on the card title and make up the
             bulk of the card's content.
@@ -51,24 +48,31 @@ export default function Building(props) {
           <ListGroupItem>Location: Somewhere in {id.building}</ListGroupItem>
           <ListGroupItem>Seats: 5</ListGroupItem>
           <ListGroupItem>
-              {/* check database whether this is available */}
+            {/* check database whether this is available */}
             <Badge variant="success">Available</Badge>{" "}
           </ListGroupItem>
         </ListGroup>
         <Card.Body>
-          <Button variant="primary" onClick={() => setModalShow(true)}>
+          {/* <Button variant="primary" onClick={() => setModalShow(true)}>
             Reserve
-          </Button>
+          </Button> */}
 
-          <ReservePopUp
+          {/* <ReservePopUp
             show={modalShow}
             onHide={() => setModalShow(false)}
             building={id.building}
-          />
+            studySpaceID={i}
+          /> */}
+          <Button
+            href={id.building + "/" + i + "/ReserveForm"}
+          >
+            Reserve
+          </Button>
         </Card.Body>
       </Card>
     );
-  }
+  });
+
   return (
     <div>
       <div className="buildingHeader">
