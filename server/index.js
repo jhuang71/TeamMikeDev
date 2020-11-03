@@ -42,6 +42,72 @@ app.post("/addUser", async (req, res) => {
     }
 });
 
+//building page
+app.get("/spaces/:id", async (req, res) => {
+    try {
+        const now = Date.now();
+
+        const { id } = req.params;
+        const spaces = await pool.query("SELECT space_id FROM study_space WHERE building_id = $1", [id]);
+        
+        const availability = [];
+        for (i = 0; i < spaces.rowCount; i++) {
+            const response = await pool.query(
+                "SELECT res_start, res_end FROM reservation WHERE space_id = $1 AND res_end > to_timestamp($2)",
+                [spaces.rows[i].space_id, now / 1000]
+            )
+
+            let result = {
+                space_id: spaces.rows[i].space_id,
+                available: true,
+            }
+
+            if (response.rowCount > 0) {
+                result.time = response.rows[0].res_start;
+            }
+            else {
+                result.time = now;
+            }
+
+            for (j = 0; j < response.rowCount; j++) {
+                if (response.rows[j].res_start < now) {
+                    result.available = false;
+                    result.time = response.rows[j].res_end;
+                    break;
+                }
+                else if (response.rows[j].res_start < result.time) {
+                    result.time = response.rows[j].res_start;
+                }
+            }
+
+            if (result.available) {
+                if (result.time == now) {
+                    result.text = "Available"
+                }
+                else if (result.time < now + (2 * 60 * 60 * 1000)) {
+                    result.text = "Available until " + new Date(result.time).getHours() + ":" + new Date(result.time).getMinutes();
+                }
+                else {
+                    result.text = "Available"
+                }
+            }
+            else {
+                if (result.time < now + (2 * 60 * 60 * 1000)) {
+                    result.text = "Unavailable until " + new Date(result.time).getHours() + ":" + new Date(result.time).getMinutes();
+                }
+                else {
+                    result.text = "Unavailable";
+                }
+            }
+
+            availability.push(result);
+        }
+
+        res.status(201).json(availability);
+    } catch (error) {
+        console.error(error.message);
+    }
+});
 
 //create a reservation
 app.post("/reservation", async (req, res) => {
