@@ -65,15 +65,17 @@ export default function ReserveForm(props) {
         //console.log(jsonData.data.reservation.res_id);
 
         res_ID = jsonData.data.reservation.res_id;
+
+        //redirect to confirmation page with res_ID
+        const confURL = "/" + res_ID + "/Confirmation";
+        window.location = confURL;
       } catch (err) {
         console.log(err);
       }
     }
     setValidated(true);
 
-    // redirect to confirmation page with res_ID
-    const confURL = "/" + res_ID + "/Confirmation";
-    window.location = confURL;
+    console.log("hey");
   };
 
   return (
