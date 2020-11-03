@@ -1,15 +1,28 @@
 import React, { useState } from "react";
 import { Form, Image, Button, Row, Col, Alert } from "react-bootstrap";
 import space1 from "./img/space1.jpg";
+import { useParams } from "react-router-dom";
 
 export default function ReserveForm(props) {
+  // extract params from url
+  const id = useParams();
+
+  // boolean
+  const isAuthed = props.isAuthed;
+
+  // {name: String, email: String, image: String, id: String}
+  const userProfile = props.userProfile;
+
   //validity var that checks if input is valid
   const [validated, setValidated] = useState(false);
 
+  //res_id global variable to be passed to confirmation page
+  var res_ID = "";
+
   //these are place holders - need to pass these vars into here
-  const email = "example@email.com";
+  const email = userProfile.email;
   const student_ID = 1;
-  const space_ID = 1;
+  const space_ID = id.spaceID;
 
   //vars that will be extracted from the form
   const [date, setDate] = useState("");
@@ -46,21 +59,22 @@ export default function ReserveForm(props) {
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify(body),
         });
-        console.log("Reservation input:\n", response);
+        const jsonData = await response.json()
+        console.log("Response from inputting:\n", jsonData);
+        //console.log(jsonData);
+        //console.log(jsonData.data.reservation.res_id);
+
+        res_ID = jsonData.data.reservation.res_id;
       } catch (err) {
         console.log(err);
       }
     }
     setValidated(true);
-    // redirect to confirmation page
-    window.location = "/Confirmation";
+
+    // redirect to confirmation page with res_ID
+    const confURL = "/" + res_ID + "/Confirmation";
+    window.location = confURL;
   };
-
-  // boolean
-  const isAuthed = props.isAuthed;
-
-  // {name: String, email: String, image: String, id: String}
-  const userProfile = props.userProfile;
 
   return (
     <div>
@@ -164,7 +178,7 @@ export default function ReserveForm(props) {
             Reservation Form
           </h2>
 
-          <Alert style={{marginTop: '2em'}}variant="warning">
+          <Alert style={{ marginTop: '2em' }} variant="warning">
             <Alert.Heading>
               You must log in first to reserve a study space
             </Alert.Heading>

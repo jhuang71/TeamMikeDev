@@ -87,6 +87,19 @@ app.post("/endReservation", async (req, res) => {
     }
 });
 
+//get a reservation using res_id
+app.get("/reservation/:id", async(req, res) => {
+    try {
+      const {id} = req.params;
+      const reservation = await pool.query(
+        "SELECT * FROM reservation WHERE res_id = $1", [id]);
+      
+      res.json(reservation.rows[0]);
+    } catch (err) {
+      console.error(err.message);
+    }
+  })
+
 app.listen(5000, () => {
     console.log("server has started on port 5000");
 });
