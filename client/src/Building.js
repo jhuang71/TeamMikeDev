@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import {
   Card,
@@ -18,12 +18,28 @@ export default function Building(props) {
   const id = useParams();
 
   // list of study spaces
-  const tempSpace = [1, 2, 3, 4, 5, 6, 7, 8];
+  const tempSpace = [1, 2, 3, 4, 5, 6, 7, 8]; //Availability code assumes that these will become space_ids that correspond with the database
   const [modalShow, setModalShow] = useState(false);
 
+  // Get availability of spaces
+  const [availability, setAvailability] = useState(Array(tempSpace.length).fill({text: ""}));
 
+  const getAvailability = async () => {
+    try {
+      const response = await fetch("http://localhost:5000/spaces/" + 1); //TODO change the '1' to dynamic building_id;
 
-  const spaces = tempSpace.map((i) => {
+      const data = await response.json();
+      setAvailability(data);
+    } catch (error) {
+      console.error(error.message);
+    }
+  };
+
+  useEffect(() => {
+    getAvailability();
+  }, []);
+
+  const spaces = tempSpace.map((i, idx) => {
     return (
       <Card
         className="spaceCSS"
@@ -49,7 +65,7 @@ export default function Building(props) {
           <ListGroupItem>Seats: 5</ListGroupItem>
           <ListGroupItem>
             {/* check database whether this is available */}
-            <Badge variant="success">Available</Badge>{" "}
+            <Badge variant={availability[idx].available ? "success" : "danger"}>{availability[idx].text}</Badge>{" "}
           </ListGroupItem>
         </ListGroup>
         <Card.Body>
