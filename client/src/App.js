@@ -8,6 +8,7 @@ import iit from "./images/iit.png";
 import TestButton from "./TestButton";
 import Confirmation from "./Confirmation";
 import { GoogleLogin, GoogleLogout } from "react-google-login";
+import MyAccount from "./MyAccount";
 
 const UnAuthView = ({ responseGoogle }) => {
   // Show Login Button
@@ -55,7 +56,6 @@ function App() {
     });
   };
 
-
   useEffect(() => {
     if (user.email.length > 0 || user.name.length > 0) setIsAuth(true);
   }, [user]);
@@ -79,6 +79,7 @@ function App() {
               className="iitImage"
             />
           </a>
+          <MyAccount isAuthed={isAuth} userProfile={user}/>
           {isAuth ? (
             <AuthView logout={logout} user={user} />
           ) : (
