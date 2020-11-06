@@ -46,8 +46,13 @@ function App() {
   const [user, setUser] = useState({ name: "", email: "", image: "", googleID: "" });
 
   const responseGoogle = (res) => {
-    const profile = res.getBasicProfile();
+    const profile = res.getBasicProfile();    
     console.log(profile)
+
+    setName(profile.getName());
+    setId(profile.getId());
+    setEmail(profile.getEmail());
+
     setUser({
       name: profile.getName(),
       email: profile.getEmail(),
@@ -65,6 +70,32 @@ function App() {
     setIsAuth(false);
   };
 
+// Works but weird. 
+// Uploads the info a bunch of times but doesnt miss data anymore
+
+  const [id, setId] = useState("");
+  const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
+
+  const googleInfo = async () => {
+    const body = {
+      user_id: id,
+      user_name: name,
+      user_email: email,
+    };
+    const response = await fetch("http://localhost:5000/addGoogle", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(body),
+    });
+    const jsonData = await response.json()
+    console.log("Response from inputting:\n", jsonData);
+  };
+
+    if(user.name != '') {
+      googleInfo();
+    };
+
   
   return (
     <Router>
@@ -81,9 +112,9 @@ function App() {
           </a>
           <MyAccount isAuthed={isAuth} userProfile={user}/>
           {isAuth ? (
-            <AuthView logout={logout} user={user} />
+            <AuthView logout={logout} user={user}/>
           ) : (
-            <UnAuthView responseGoogle={responseGoogle} />
+            <UnAuthView responseGoogle={responseGoogle}/>
           )}
         </div>
 
