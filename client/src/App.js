@@ -42,6 +42,21 @@ const AuthView = ({ logout, user }) => {
 };
 
 function App() {
+  const getUser = async (gid) => {
+    try {
+      const res = await fetch("http://localhost:5000/get/user/" + gid);
+      const data = await res.json();
+      if (data === undefined || data.length == 0) {
+        return false;
+      }
+      else {
+        return true;
+      }
+    } catch(error) {
+      console.error(error.message);
+    }
+  }
+
   const [isAuth, setIsAuth] = useState(false);
   const [user, setUser] = useState({ name: "", email: "", image: "", googleID: "" });
 
@@ -59,11 +74,14 @@ function App() {
       image: profile.getImageUrl(),
       googleID: profile.getId()
     });
-  };
 
-  useEffect(() => {
-    if (user.email.length > 0 || user.name.length > 0) setIsAuth(true);
-  }, [user]);
+    getUser(profile.getId()).then((res) => {
+      if (!res) {
+        console.log("user not exist");
+        googleInfo();
+      }
+    })
+  };
 
   const logout = () => {
     setUser({ name: "", email: "", image: "", googleID: "" });
@@ -92,10 +110,11 @@ function App() {
     console.log("Response from inputting:\n", jsonData);
   };
 
-    if(user.name != '') {
-      googleInfo();
-    };
-
+  useEffect(() => {
+    if (user.email.length > 0 || user.name.length > 0) {
+      setIsAuth(true);
+    }
+  }, [user]);
   
   return (
     <Router>
@@ -110,9 +129,11 @@ function App() {
               className="iitImage"
             />
           </a>
-          <MyAccount isAuthed={isAuth} userProfile={user}/>
           {isAuth ? (
+            <>
+            <MyAccount isAuthed={isAuth} userProfile={user}/>
             <AuthView logout={logout} user={user}/>
+            </>
           ) : (
             <UnAuthView responseGoogle={responseGoogle}/>
           )}

@@ -18,11 +18,10 @@ export default function Building(props) {
   const id = useParams();
 
   // list of study spaces
-  const tempSpace = [1, 2, 3, 4, 5, 6, 7, 8]; //Availability code assumes that these will become space_ids that correspond with the database
-  const [modalShow, setModalShow] = useState(false);
+  const [studySpace, setStudySpace] = useState([]);
 
   // Get availability of spaces
-  const [availability, setAvailability] = useState(Array(tempSpace.length).fill({text: ""}));
+  const [availability, setAvailability] = useState(Array(1000).fill({text: ""}));
 
   const getAvailability = async () => {
     try {
@@ -35,11 +34,24 @@ export default function Building(props) {
     }
   };
 
+
+  const getStudySpace = async () => {
+    try {
+      const res = await fetch("http://localhost:5000/get/study_spaces/" + 1); // TODO: dynamic building id
+      const data = await res.json();
+      setStudySpace(data);
+    } catch (error) {
+      console.error(error.message);
+    }
+  }
+
   useEffect(() => {
+    getStudySpace();
     getAvailability();
   }, []);
 
-  const spaces = tempSpace.map((i, idx) => {
+
+  const spaces = studySpace.map((space, idx) => {
     return (
       <Card
         className="spaceCSS"
@@ -50,37 +62,23 @@ export default function Building(props) {
           marginBottom: "2rem",
           float: "left",
         }}
-        key={i}
+        key={idx}
       >
         <Card.Img variant="top" src={space1} />
         <Card.Body>
-          <Card.Title>Space {i}</Card.Title>
-          <Card.Text>
-            Some quick example text to build on the card title and make up the
-            bulk of the card's content.
-          </Card.Text>
+          <Card.Title>Space {space.space_id}</Card.Title>
         </Card.Body>
         <ListGroup className="list-group-flush">
-          <ListGroupItem>Location: Somewhere in {id.building}</ListGroupItem>
-          <ListGroupItem>Seats: 5</ListGroupItem>
+          <ListGroupItem>Location: {space.space_loc}</ListGroupItem>
+        <ListGroupItem>Seats: {space.num_chairs}</ListGroupItem>
           <ListGroupItem>
             {/* check database whether this is available */}
             <Badge variant={availability[idx].available ? "success" : "danger"}>{availability[idx].text}</Badge>{" "}
           </ListGroupItem>
         </ListGroup>
         <Card.Body>
-          {/* <Button variant="primary" onClick={() => setModalShow(true)}>
-            Reserve
-          </Button> */}
-
-          {/* <ReservePopUp
-            show={modalShow}
-            onHide={() => setModalShow(false)}
-            building={id.building}
-            studySpaceID={i}
-          /> */}
           <Button
-            href={id.building + "/" + i + "/ReserveForm"}
+            href={id.building + "/" + space.space_id + "/ReserveForm"}
           >
             Reserve
           </Button>
