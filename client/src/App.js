@@ -110,15 +110,11 @@ function App() {
     console.log("Response from inputting:\n", jsonData);
   };
 
- 
-
   useEffect(() => {
     if (user.email.length > 0 || user.name.length > 0) {
       setIsAuth(true);
     }
   }, [user]);
-  
-
   
   return (
     <Router>
