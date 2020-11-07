@@ -79,9 +79,11 @@ function App() {
               className="iitImage"
             />
           </a>
-          <MyAccount isAuthed={isAuth} userProfile={user}/>
           {isAuth ? (
+            <>
+            <MyAccount isAuthed={isAuth} userProfile={user}/>
             <AuthView logout={logout} user={user} />
+            </>
           ) : (
             <UnAuthView responseGoogle={responseGoogle} />
           )}
