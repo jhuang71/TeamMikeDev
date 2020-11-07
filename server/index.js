@@ -111,6 +111,19 @@ app.get("/spaces/:id", async (req, res) => {
     }
 });
 
+app.post("/addGoogle", async (req, res) => {
+    try {
+        const googleQuery = await pool.query(
+            "INSERT INTO users(user_id, privilege_type, user_name, user_email) VALUES ($1, $2, $3, $4)", 
+            [req.body.user_id, 'student', req.body.user_name, req.body.user_email]
+        );
+        console.log(req.body);
+        res.json(googleQuery);
+    } catch (error) {
+        console.error(error.message);
+    }
+});
+
 //create a reservation
 app.post("/reservation", async (req, res) => {
     try {

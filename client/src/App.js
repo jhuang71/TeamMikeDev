@@ -42,28 +42,82 @@ const AuthView = ({ logout, user }) => {
 };
 
 function App() {
+  const getUser = async (gid) => {
+    try {
+      const res = await fetch("http://localhost:5000/get/user/" + gid);
+      const data = await res.json();
+      if (data === undefined || data.length == 0) {
+        return false;
+      }
+      else {
+        return true;
+      }
+    } catch(error) {
+      console.error(error.message);
+    }
+  }
+
   const [isAuth, setIsAuth] = useState(false);
   const [user, setUser] = useState({ name: "", email: "", image: "", googleID: "" });
 
   const responseGoogle = (res) => {
-    const profile = res.getBasicProfile();
+    const profile = res.getBasicProfile();    
     console.log(profile)
+
+    setName(profile.getName());
+    setId(profile.getId());
+    setEmail(profile.getEmail());
+
     setUser({
       name: profile.getName(),
       email: profile.getEmail(),
       image: profile.getImageUrl(),
       googleID: profile.getId()
     });
-  };
 
-  useEffect(() => {
-    if (user.email.length > 0 || user.name.length > 0) setIsAuth(true);
-  }, [user]);
+    getUser(profile.getId()).then((res) => {
+      if (!res) {
+        console.log("user not exist");
+        googleInfo();
+      }
+    })
+  };
 
   const logout = () => {
     setUser({ name: "", email: "", image: "", googleID: "" });
     setIsAuth(false);
   };
+
+// Works but weird. 
+// Uploads the info a bunch of times but doesnt miss data anymore
+
+  const [id, setId] = useState("");
+  const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
+
+  const googleInfo = async () => {
+    const body = {
+      user_id: id,
+      user_name: name,
+      user_email: email,
+    };
+    const response = await fetch("http://localhost:5000/addGoogle", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(body),
+    });
+    const jsonData = await response.json()
+    console.log("Response from inputting:\n", jsonData);
+  };
+
+ 
+
+  useEffect(() => {
+    if (user.email.length > 0 || user.name.length > 0) {
+      setIsAuth(true);
+    }
+  }, [user]);
+  
 
   
   return (
@@ -82,10 +136,10 @@ function App() {
           {isAuth ? (
             <>
             <MyAccount isAuthed={isAuth} userProfile={user}/>
-            <AuthView logout={logout} user={user} />
+            <AuthView logout={logout} user={user}/>
             </>
           ) : (
-            <UnAuthView responseGoogle={responseGoogle} />
+            <UnAuthView responseGoogle={responseGoogle}/>
           )}
         </div>
 
