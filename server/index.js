@@ -181,6 +181,29 @@ app.get("/reservation/:id", async(req, res) => {
     }
   })
 
+
+// get study spaces given building id
+app.get("/get/study_spaces/:id", async (req, res) => {
+    try {
+        const { id } = req.params;
+        const spaces = await pool.query("SELECT * FROM study_space WHERE building_id = $1", [id]);
+        res.json(spaces.rows);
+    } catch (error) {
+        console.error(error.message);
+    }
+})
+
+// get user from data
+app.get("/get/user/:googleId", async (req, res) => {
+    try {
+        const { googleId } = req.params;
+        const user = await pool.query("SELECT * FROM users WHERE user_id = $1", [googleId]);
+        res.json(user.rows);
+    } catch (error) {
+        console.error(error.message);
+    }
+})
+
 app.listen(5000, () => {
     console.log("server has started on port 5000");
 });
