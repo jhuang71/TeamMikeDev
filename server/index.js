@@ -149,7 +149,7 @@ app.post("/reservation", async (req, res) => {
             res.status(409).json({
                 status: "conflicts",
                 conflicts: conflicts.rows
-            })
+            });
         }
 
         
