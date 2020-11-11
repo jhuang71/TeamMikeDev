@@ -34,11 +34,21 @@ export default function ReserveForm(props) {
     event.preventDefault();
     const form = event.currentTarget;
 
+    var today = new Date();
+    var todaysDate = today.getFullYear() + '-' + (today.getMonth() + 1) + '-' + today.getDate();
+    const getTime = time => new Date(2020, 12, 2, time.substring(0, 2), time.substring(3, 5), 0, 0);
+
     //validity forces user to enter proper input
     if (form.checkValidity() === false) {
       event.preventDefault();
       event.stopPropagation();
-    } else {
+    }
+    //doesn't allow reservation if time range longer than 2 hours or shorter than 15 mins
+    else if (getTime(timeTo)-getTime(timeFrom) > 7200000 || getTime(timeTo)-getTime(timeFrom) < 900000){
+      event.preventDefault();
+      event.stopPropagation();
+    }
+    else {
       //this is what sends the vars from the form to index.js, which sends them to the db
       try {
         //creating timestamp
