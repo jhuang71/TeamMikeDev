@@ -127,17 +127,32 @@ app.post("/addGoogle", async (req, res) => {
 //create a reservation
 app.post("/reservation", async (req, res) => {
     try {
-        const results = await pool.query(
-            "INSERT INTO reservation (student_id, space_id, res_start, res_end) VALUES($1, $2, $3, $4) RETURNING *",
-            [req.body.student_id, req.body.space_id, req.body.res_start, req.body.res_end]
+        const conflicts = await pool.query(
+            "SELECT * FROM reservation WHERE space_id = $1 AND res_end > $2 AND res_start < $3",
+            [req.body.space_id, req.body.res_start, req.body.res_end]
         );
-        console.log(req.body);
-        res.status(201).json({
-            status: "success",
-            data: {
-                reservation: results.rows[0],
-            },
-        });
+
+        if (conflicts.rowCount == 0){
+            const results = await pool.query(
+                "INSERT INTO reservation (student_id, space_id, res_start, res_end) VALUES($1, $2, $3, $4) RETURNING *",
+                [req.body.student_id, req.body.space_id, req.body.res_start, req.body.res_end]
+            );
+
+            res.status(201).json({
+                status: "success",
+                data: {
+                    reservation: results.rows[0],
+                },
+            });
+        }
+        else {
+            res.status(409).json({
+                status: "conflicts",
+                conflicts: conflicts.rows
+            });
+        }
+
+        
     } catch (err) {
         console.log(err.message);
       }
