@@ -11,12 +11,13 @@ import {
 } from "react-bootstrap";
 import space1 from "./img/space1.jpg";
 import hh from "./img/HH-1620X1080.jpg";
+import mtcc from "./img/mtcc-1607 x 725.jpg";
 import ReservePopUp from "./ReservePopUp";
 
 export default function Building(props) {
   // extract params from url
   const id = useParams();
-
+  const topImg = id.building === "hermann" ? hh : mtcc;
   // list of study spaces
   const [studySpace, setStudySpace] = useState([]);
 
@@ -90,7 +91,7 @@ export default function Building(props) {
   return (
     <div>
       <div className="buildingHeader">
-        <Image style={{ opacity: "0.9" }} src={hh} fluid />
+        <Image style={{ opacity: "0.9" }} src={topImg} fluid />
         <h1 className="centered">{id.building.toUpperCase()}</h1>
       </div>
       {spaces}
