@@ -10,32 +10,12 @@ export default function Confirmation() {
     const space_ID = id.spaceID;
     //var times = "";
     const [times, setTimes] = useState([]);
-    //const [todos, setTodos] = useState([]);
 
-    // const response = await fetch("http://localhost:5000/reservation/:id", {
-    //       method: "POST",
-    //       headers: { "Content-Type": "application/json" },
-    //       body: JSON.stringify(body),
-    //     });
-    //     const jsonData = await response.json()
-
-    // const getTodos = async () => {
-    //     try {
-    //         const response = await fetch("http://localhost:5000/todos")
-    //         const jsonData = await response.json()
-
-    //         setTodos(jsonData);
-    //     } catch (err) {
-    //         console.error(err.message);
-    //     }
-    // }
-
-    const getTimes = async id => {
+    const getTimes = async () => {
         try {
-            const response = await fetch(`http://localhost:5000/reservation/${id}`)
+            const response = await fetch(`http://localhost:5000/reservation/${id.resID}`)
             const data = await response.json()
             setTimes(data);
-            //times = data;
             console.log("in getTimes");
             console.log(data);
         } catch (err){
@@ -43,6 +23,7 @@ export default function Confirmation() {
             console.log("in getTimes catch");
         }
     }
+
     useEffect(() => {
         getTimes();
     }, []);
