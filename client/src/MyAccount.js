@@ -9,7 +9,7 @@ export default function MyReservations(props) {
     const handleClose = () => setShow(false);
     const handleShow = () => setShow(true);
     const [reservation, setReservation] = useState("");
-    const [reservations, setReservations] = useState("");
+    const [reservations, setReservations] = useState([]);
     const [validated, setValidated] = useState(false);
     const isAuthed = props.isAuthed;
     const userProfile = props.userProfile;
