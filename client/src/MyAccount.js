@@ -14,27 +14,10 @@ export default function MyReservations(props) {
     const isAuthed = props.isAuthed;
     const userProfile = props.userProfile;
 
-//     const getReservations = async id => {
-//         try {
-//             console.log("we made it");
-//             const response = await fetch(`http://localhost:5000/reservations/${id}`)
-//             console.log(response);
-//             const jsonData = await response.json();
-//             console.log("we made it3");
-// console.log(jsonData);
-//             setReservations(jsonData);
-//         } catch (err) {
-//             console.error(err.message);
-//         }
-//     }
-//     useEffect(() => {
-//         getReservations();
-//     }, []);
-
-    const getReservations = async() => {
+    const getReservations = async studentId => {
         try {
-            const response = await fetch("http://localhost:5000/reservations/")
-            const jsonData = await response.json()
+            const response = await fetch(`http://localhost:5000/reservations/${studentId}`)
+            const jsonData = await response.json();
 
             setReservations(jsonData);
         } catch (err) {
@@ -42,8 +25,23 @@ export default function MyReservations(props) {
         }
     }
     useEffect(() => {
-        getReservations();
+        getReservations(userProfile.googleID);
     }, []);
+
+    //This gets all reservations - leaving it here in case needed for the future
+    // const getReservations = async() => {
+    //     try {
+    //         const response = await fetch("http://localhost:5000/reservations/")
+    //         const jsonData = await response.json()
+
+    //         setReservations(jsonData);
+    //     } catch (err) {
+    //         console.error(err.message);
+    //     }
+    // }
+    // useEffect(() => {
+    //     getReservations();
+    // }, []);
 
 console.log(reservations);
 
@@ -94,40 +92,37 @@ console.log(reservations);
         <>
             <Button className="accountButton" variant="primary" onClick={handleShow}>My Reservations</Button>
             <Modal show={show} onHide={handleClose} size="lg" centered>
-                <Modal.Header>
-                    <h3 style={{ textAlign: 'center', margin: '15px' }}>Your Reservations</h3>    {/* Not centering? */}
-                    <table className="table mt-5 text=center">
-                        <thead>
-                            <tr>
-                                <th>Description</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                                                        
+                    <Modal.Title style={{ textAlign: 'center', paddingTop: '16px' }}>My Reservations</Modal.Title>    {/* Not centering? */}
+                <Modal.Body style={{ textAlign: 'center', margin: '0', paddingBottom: '0'}}>
+                    <table className="table text=center mb-0">
+                            <thead>
                                 <tr>
-                                    <td>John</td>
-                                    <td>Doe</td>
-                                    <td>john@example.com</td>
+                                    <th>Reservation ID</th>
+                                    <th>Time From</th>
+                                    <th>Time To</th>
+                                    <th>End</th>
                                 </tr>
-                           
-                            {reservations.map(res => (
-                                <tr key={res.res_id}>
-                                    <td>{res.res_start}</td>
-                                    <td>
-                                        <button 
-                                        className="btn btn-danger" 
-                                        onClick={() => handleEnd(res.res_id)}>
-                                            End
-                                        </button>
-                                    </td>
-                                </tr>
-                            ))}
-                        </tbody>
-                    </table>
-                </Modal.Header>
-                <Modal.Body>
-
-                    {/* Made a form in case we want to add more fields in the future */}
+                            </thead>
+                            <tbody>
+                                {reservations.map(res => (
+                                    <tr key={res.res_id}>
+                                        <td>{res.res_id}</td>
+                                        <td>{res.res_start}</td>
+                                        <td>{res.res_end}</td>
+                                        <td>
+                                            <button 
+                                            className="btn btn-danger" 
+                                            onClick={() => handleEnd(res.res_id)}>
+                                                End
+                                            </button>
+                                        </td>
+                                    </tr>
+                                ))}
+                            </tbody>
+                        </table>
+                </Modal.Body>
+                {/* Made a form in case we want to add more fields in the future */}
+                {/* <Modal.Body>
                     <Form noValidate validated={validated} onSubmit={handleSubmit}>
                         <Form.Group as={Col} controlId="reservationNum">
                             <Form.Label>Select Reservation to End:</Form.Label>
@@ -141,9 +136,7 @@ console.log(reservations);
 
                         <Button variant="primary" type="submit">End Reservation</Button>
                     </Form>
-
-
-                </Modal.Body>
+                </Modal.Body> */}
                 <Modal.Footer>
                     <br></br>
                     <Button variant="secondary" onClick={handleClose}>

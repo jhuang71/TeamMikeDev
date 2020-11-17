@@ -181,12 +181,12 @@ app.get("/reservation/:id", async(req, res) => {
     }
   })
 
-  //get reservations using student_id
+//get reservations using student_id
 app.get("/reservations/:studentId", async(req, res) => {
     try {
-      const {id} = req.params;
+      const {studentId} = req.params;
       const reservation = await pool.query(
-        "SELECT * FROM reservation WHERE student_id = $1", [id]);
+        "SELECT * FROM reservation WHERE student_id = $1", [studentId]);
       
       res.json(reservation.rows);
     } catch (err) {
