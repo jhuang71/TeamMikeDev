@@ -199,7 +199,7 @@ app.get("/reservations/:studentId", async(req, res) => {
     try {
       const {studentId} = req.params;
       const reservation = await pool.query(
-        "SELECT * FROM reservation WHERE student_id = $1", [studentId]);
+        "SELECT * FROM reservation WHERE student_id = $1 ORDER BY res_start", [studentId]);
       
       res.json(reservation.rows);
     } catch (err) {
@@ -207,7 +207,7 @@ app.get("/reservations/:studentId", async(req, res) => {
     }
   })
 
-//get all resrvations
+//get all reservations
 app.get("/reservations", async(req, res) => {
     try {
       const allReservations = await pool.query(
