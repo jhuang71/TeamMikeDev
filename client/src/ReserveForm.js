@@ -121,19 +121,12 @@ export default function ReserveForm(props) {
             validated={validated}
             onSubmit={handleSubmit}
           >
-            <Form.Group controlId="email">
-              <Form.Label>Email address</Form.Label>
-              <Form.Control readOnly placeholder={email} />
-              <Form.Control.Feedback type="invalid">
-                Not a valid email address.
-              </Form.Control.Feedback>
-            </Form.Group>
             <Form.Row controlId="IDs">
-              <Form.Group as={Col} controlId="studentID">
-                <Form.Label>Student ID</Form.Label>
-                <Form.Control readOnly placeholder={student_ID} />
+              <Form.Group as={Col} controlId="email">
+                <Form.Label>Email Address</Form.Label>
+                <Form.Control readOnly placeholder={email} />
                 <Form.Control.Feedback type="invalid">
-                  Not a valid student ID.
+                  Not a valid email address.
                 </Form.Control.Feedback>
               </Form.Group>
               <Form.Group as={Col} controlId="spaceID">
