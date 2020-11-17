@@ -103,7 +103,7 @@ console.log(reservations);
         <>
             <Button className="accountButton" variant="primary" onClick={handleShow}>My Reservations</Button>
             <Modal show={show} onHide={handleClose} size="lg" centered>
-                    <Modal.Title style={{ textAlign: 'center', paddingTop: '16px' }}>My Reservations</Modal.Title>    {/* Not centering? */}
+                <Modal.Title style={{ textAlign: 'center', paddingTop: '16px' }}>My Reservations</Modal.Title> 
                 <Modal.Body style={{ textAlign: 'center', margin: '0', paddingBottom: '0'}}>
                     <table className="table text=center mb-0">
                             <thead>
