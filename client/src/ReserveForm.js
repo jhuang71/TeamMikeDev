@@ -4,6 +4,9 @@ import space1 from "./img/space1.jpg";
 import { useParams } from "react-router-dom";
 
 export default function ReserveForm(props) {
+  //alert var for invalid times
+  const [show, setShow] = useState(false);
+
   // extract params from url
   const id = useParams();
 
@@ -21,13 +24,17 @@ export default function ReserveForm(props) {
 
   //these are place holders - need to pass these vars into here
   const email = userProfile.email;
-  const student_ID = 1;
+  const student_ID = userProfile.googleID;
   const space_ID = id.spaceID;
 
   //vars that will be extracted from the form
   const [date, setDate] = useState("");
   const [timeFrom, setTimeFrom] = useState("");
   const [timeTo, setTimeTo] = useState("");
+
+  //reservation limits in minutes
+  var minLimit = 15;
+  var maxLimit = 120;
 
   //handling submit function
   const handleSubmit = async (event) => {
@@ -42,11 +49,13 @@ export default function ReserveForm(props) {
     if (form.checkValidity() === false) {
       event.preventDefault();
       event.stopPropagation();
+      setShow(true);
     }
     //doesn't allow reservation if time range longer than 2 hours or shorter than 15 mins
-    else if (getTime(timeTo)-getTime(timeFrom) > 7200000 || getTime(timeTo)-getTime(timeFrom) < 900000){
+    else if (getTime(timeTo) - getTime(timeFrom) > 60000 * maxLimit || getTime(timeTo) - getTime(timeFrom) < 60000 * minLimit) {
       event.preventDefault();
       event.stopPropagation();
+      setShow(true)
     }
     else {
       //this is what sends the vars from the form to index.js, which sends them to the db
@@ -112,19 +121,12 @@ export default function ReserveForm(props) {
             validated={validated}
             onSubmit={handleSubmit}
           >
-            <Form.Group controlId="email">
-              <Form.Label>Email address</Form.Label>
-              <Form.Control readOnly placeholder={email} />
-              <Form.Control.Feedback type="invalid">
-                Not a valid email address.
-              </Form.Control.Feedback>
-            </Form.Group>
             <Form.Row controlId="IDs">
-              <Form.Group as={Col} controlId="studentID">
-                <Form.Label>Student ID</Form.Label>
-                <Form.Control readOnly placeholder={student_ID} />
+              <Form.Group as={Col} controlId="email">
+                <Form.Label>Email Address</Form.Label>
+                <Form.Control readOnly placeholder={email} />
                 <Form.Control.Feedback type="invalid">
-                  Not a valid student ID.
+                  Not a valid email address.
                 </Form.Control.Feedback>
               </Form.Group>
               <Form.Group as={Col} controlId="spaceID">
@@ -173,6 +175,14 @@ export default function ReserveForm(props) {
                 </Form.Group>
               </Form.Group>
             </Form.Row>
+
+            <Alert show={show} variant="danger" onClose={() => setShow(false)} dismissible>
+              <Alert.Heading>Invalid Entry</Alert.Heading>
+              <p>
+                Please enter a valid time slot between 12:00AM and 11:59PM. Slot cannot be shorter than {minLimit} minutes or longer than {maxLimit} minutes.
+              </p>
+            </Alert>
+
             <Button variant="primary" type="submit">
               Submit
             </Button>
