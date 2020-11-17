@@ -54,7 +54,11 @@ console.log(reservations);
     }
     const handleCancel = async id => {
         try {
-            console.log("we trying to cancel");
+            const deleteTodo = await fetch(`http://localhost:5000/reservation/${id}`, {
+                method: "DELETE"
+            });
+
+            setReservations(reservations.filter(reservations => reservations.res_id !== id));
         } catch (err) {
             console.error(err.message);  
         }

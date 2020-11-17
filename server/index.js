@@ -168,6 +168,19 @@ app.post("/endReservation", async (req, res) => {
     }
 });
 
+//delete a reservation using res_id
+app.delete("/reservation/:id", async(req, res) => {
+    try {
+      const {id} = req.params;
+      const deleteTodo = await pool.query(
+        "DELETE FROM reservation WHERE res_id = $1", [id]);
+      
+      res.json("ID '" + id + "' deleted!");
+    } catch (err) {
+      console.error(err.message);
+    }
+  })
+
 //get a reservation using res_id
 app.get("/reservation/:id", async(req, res) => {
     try {
