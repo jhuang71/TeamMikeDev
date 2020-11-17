@@ -47,7 +47,14 @@ console.log(reservations);
 
     const handleEnd = async id => {
         try {
-            console.log("we trying");
+            console.log("we trying to end");
+        } catch (err) {
+            console.error(err.message);  
+        }
+    }
+    const handleCancel = async id => {
+        try {
+            console.log("we trying to cancel");
         } catch (err) {
             console.error(err.message);  
         }
@@ -101,6 +108,7 @@ console.log(reservations);
                                     <th>Time From</th>
                                     <th>Time To</th>
                                     <th>End</th>
+                                    <th>Cancel</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -111,9 +119,16 @@ console.log(reservations);
                                         <td>{res.res_end}</td>
                                         <td>
                                             <button 
-                                            className="btn btn-danger" 
+                                            className="btn btn-warning" 
                                             onClick={() => handleEnd(res.res_id)}>
                                                 End
+                                            </button>
+                                        </td>
+                                        <td>
+                                            <button 
+                                            className="btn btn-danger" 
+                                            onClick={() => handleCancel(res.res_id)}>
+                                                Cancel
                                             </button>
                                         </td>
                                     </tr>
