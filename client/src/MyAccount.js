@@ -9,10 +9,7 @@ export default function MyReservations(props) {
     const [show, setShow] = useState(false);
     const handleClose = () => setShow(false);
     const handleShow = () => setShow(true);
-    const [reservation, setReservation] = useState("");
     const [reservations, setReservations] = useState([]);
-    const [validated, setValidated] = useState(false);
-    const isAuthed = props.isAuthed;
     const userProfile = props.userProfile;
 
     const getReservations = async studentId => {
@@ -75,32 +72,6 @@ console.log(reservations);
             console.error(err.message);  
         }
     }
-
-    const handleSubmit = async (event) => {
-        event.preventDefault();
-        const form = event.currentTarget;
-
-        if (form.checkValidity() === false) {
-            event.preventDefault();
-            event.stopPropagation();
-        } else {
-            try {
-                const body = {
-                    space_id: reservation,
-                    student_id: userProfile.googleID
-                };
-                const response = await fetch("http://localhost:5000/endReservation", {
-                    method: "POST",
-                    headers: { "Content-Type": "application/json" },
-                    body: JSON.stringify(body),
-                });
-                console.log("Ending Reservation at:\n", response);
-            } catch (error) {
-                console.error(error.message);
-            }
-        }
-        setValidated(true);
-    };
 
     const Button = styled.button`
         background: transparent;
