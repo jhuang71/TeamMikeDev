@@ -56,7 +56,7 @@ console.log(reservations);
             });
             console.log("Ending Reservation at:\n", response);
 
-            //window.location = "/";
+            window.location = "/";
         } catch (err) {
             console.error(err.message);
         }
