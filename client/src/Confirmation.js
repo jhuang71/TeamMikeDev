@@ -51,7 +51,7 @@ export default function Confirmation() {
                 <Image style={{ opacity: "0.9" }} src={hermann} width="1000" height="750" fluid />
                 <h1 className="centered">Hermann</h1>
             </div>
-            <h2 class="confirmation">Your Reservation on {month}/{date}/{year} from {startHour}:{startMin} to {endHour}:{endMin} has been Accepted</h2>
+            <h2 class="confirmation">Your Reservation on {month + 1}/{date}/{year} from {startHour}:{startMin} to {endHour}:{endMin} has been Accepted</h2>
             <Button href="/" variant="primary" type="submit" class="confirmButton">Return to Home</Button>
         </div>
     );

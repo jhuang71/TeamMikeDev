@@ -12,14 +12,55 @@ import {
 import space1 from "./img/space1.jpg";
 import hh from "./img/HH-1620X1080.jpg";
 import mtcc from "./img/mtcc-1607 x 725.jpg";
+import crown from "./img/crown.jpg";
+import galvin from "./img/galvin.jpg";
+import kaplan from "./img/kaplan.jpg";
+import perlstein from "./img/perlstein.jpg";
+import pritzker from "./img/pritzker.jpg";
+import stuart from "./img/stuart.jpg";
+import tower from "./img/tower.jpg";
+import extra from "./img/extra.jpg";
 import ReservePopUp from "./ReservePopUp";
 
 export default function Building(props) {
   // extract params from url
   const id = useParams();
-  const topImg = id.building === "hermann" ? hh : mtcc;
   // list of study spaces
   const [studySpace, setStudySpace] = useState([]);
+
+  function buildingSelect() {
+    if(id.building === "hermann") {
+      return hh;
+    } else if (id.building === "mtcc") {
+      return mtcc;
+    } else if (id.building === "iit_tower") {
+      return tower;
+    } else if (id.building === "pritzker") {
+      return pritzker;
+    } else if (id.building === "galvin") {
+      return galvin;
+    } else if (id.building === "stuart") {
+      return stuart;
+    } else if (id.building === "kaplan") {
+      return kaplan;
+    } else if (id.building === "perlstein") {
+      return perlstein;
+    } else if (id.building === "crown") {
+      return crown;
+    } else {
+      return extra;
+    }
+  };
+
+  function buildingName() {
+    if(id.building === "Eng") {
+      return "ENGINEERING CENTER";
+    } else if(id.building === "iit_tower") {
+      return "IIT TOWER";
+    } else {
+      return id.building.toUpperCase();
+    }
+  };
 
   // Get availability of spaces
   const [availability, setAvailability] = useState(Array(1000).fill({text: ""}));
@@ -91,8 +132,8 @@ export default function Building(props) {
   return (
     <div>
       <div className="buildingHeader">
-        <Image style={{ opacity: "0.9" }} src={topImg} fluid />
-        <h1 className="centered">{id.building.toUpperCase()}</h1>
+        <Image style={{ opacity: "0.9" }} src={buildingSelect()} fluid />
+        <h1 className="centered">{buildingName()}</h1>
       </div>
       {spaces}
     </div>

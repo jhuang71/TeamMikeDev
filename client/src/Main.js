@@ -93,7 +93,7 @@ class Main extends React.Component {
           <figcaption>
             <h2>Kaplan Institute</h2>
           </figcaption>    
-          <a href="/kaplan">_</a>             
+          <a href="/building/kaplan">_</a>             
         </figure>
 
         <figure className="building">
