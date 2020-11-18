@@ -4,6 +4,7 @@ import styled from 'styled-components'
 import "./App.css";
 
 export default function MyReservations(props) {
+    var today = new Date();
 
     const [show, setShow] = useState(false);
     const handleClose = () => setShow(false);
@@ -122,11 +123,11 @@ console.log(reservations);
                                         <td>{res.res_start}</td>
                                         <td>{res.res_end}</td>
                                         <td>
-                                            <button 
-                                            className="btn btn-warning" 
+                                            {(today>new Date(res.res_start)&&(today<new Date(res.res_end))) ? <button 
+                                            className="btn btn-primary" 
                                             onClick={() => handleEnd(res.res_id)}>
                                                 End
-                                            </button>
+                                            </button> : <></>}
                                         </td>
                                         <td>
                                             <button 
