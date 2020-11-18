@@ -183,6 +183,19 @@ app.post("/endReservation", async (req, res) => {
     }
 });
 
+//delete a reservation using res_id
+app.delete("/reservation/:id", async(req, res) => {
+    try {
+      const {id} = req.params;
+      const deleteTodo = await pool.query(
+        "DELETE FROM reservation WHERE res_id = $1", [id]);
+      
+      res.json("ID '" + id + "' deleted!");
+    } catch (err) {
+      console.error(err.message);
+    }
+  })
+
 //get a reservation using res_id
 app.get("/reservation/:id", async(req, res) => {
     try {
@@ -196,6 +209,31 @@ app.get("/reservation/:id", async(req, res) => {
     }
   })
 
+//get reservations using student_id
+app.get("/reservations/:studentId", async(req, res) => {
+    try {
+      const {studentId} = req.params;
+      const reservation = await pool.query(
+        "SELECT * FROM reservation WHERE student_id = $1 ORDER BY res_start", [studentId]);
+      
+      res.json(reservation.rows);
+    } catch (err) {
+      console.error(err.message);
+    }
+  })
+
+//get all reservations
+app.get("/reservations", async(req, res) => {
+    try {
+      const allReservations = await pool.query(
+        "SELECT * FROM reservation");
+      
+      res.json(allReservations.rows);
+  
+    } catch (err) {
+      console.error(err.message);
+    }
+  })
 
 // get study spaces given building id
 app.get("/get/study_spaces/:id", async (req, res) => {
