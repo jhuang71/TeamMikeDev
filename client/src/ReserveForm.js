@@ -5,7 +5,9 @@ import { useParams } from "react-router-dom";
 
 export default function ReserveForm(props) {
   //alert var for invalid times
-  const [show, setShow] = useState(false);
+  const [showInvalid, setShowInvalid] = useState(false);
+  const [showConflicting, setShowConflicting] = useState(false);
+  const [conflicts, setConflicts] = useState([]);
 
   // extract params from url
   const id = useParams();
@@ -49,13 +51,13 @@ export default function ReserveForm(props) {
     if (form.checkValidity() === false) {
       event.preventDefault();
       event.stopPropagation();
-      setShow(true);
+      setShowInvalid(true);
     }
     //doesn't allow reservation if time range longer than 2 hours or shorter than 15 mins
     else if (getTime(timeTo) - getTime(timeFrom) > 60000 * maxLimit || getTime(timeTo) - getTime(timeFrom) < 60000 * minLimit) {
       event.preventDefault();
       event.stopPropagation();
-      setShow(true)
+      setShowInvalid(true)
     }
     else {
       //this is what sends the vars from the form to index.js, which sends them to the db
@@ -78,16 +80,30 @@ export default function ReserveForm(props) {
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify(body),
         });
-        const jsonData = await response.json()
-        console.log("Response from inputting:\n", jsonData);
-        //console.log(jsonData);
-        //console.log(jsonData.data.reservation.res_id);
 
-        res_ID = jsonData.data.reservation.res_id;
+        console.log(response.status);
 
-        //redirect to confirmation page with res_ID
-        const confURL = "/" + res_ID + "/Confirmation";
-        window.location = confURL;
+        if (response.status === 201) {
+          const jsonData = await response.json()
+          console.log("Response from inputting:\n", jsonData);
+          //console.log(jsonData);
+          //console.log(jsonData.data.reservation.res_id);
+
+          res_ID = jsonData.data.reservation.res_id;
+
+          //redirect to confirmation page with res_ID
+          const confURL = "/" + res_ID + "/Confirmation";
+          window.location = confURL;
+        }
+        else if (response.status === 409) {
+          const jsonData = await response.json();
+          setConflicts(jsonData.conflicts);
+
+          event.preventDefault();
+          event.stopPropagation();
+          setShowConflicting(true);
+        }
+
       } catch (err) {
         console.log(err);
       }
@@ -176,11 +192,19 @@ export default function ReserveForm(props) {
               </Form.Group>
             </Form.Row>
 
-            <Alert show={show} variant="danger" onClose={() => setShow(false)} dismissible>
+            <Alert show={showInvalid} variant="danger" onClose={() => setShowInvalid(false)} dismissible>
               <Alert.Heading>Invalid Entry</Alert.Heading>
               <p>
                 Please enter a valid time slot between 12:00AM and 11:59PM. Slot cannot be shorter than {minLimit} minutes or longer than {maxLimit} minutes.
               </p>
+            </Alert>
+
+            <Alert show={showConflicting} variant="danger" onClose={() => setShowConflicting(false)} dismissible>
+              <Alert.Heading>Conflicting Reservation</Alert.Heading>
+              <p>
+                The time entered conflicts with the following existing reservations. Please enter a new reservation.
+              </p>
+              {conflicts.map((conflict) => <p>{new Date(conflict.res_start).getHours()}:{new Date(conflict.res_start).getMinutes()} - {new Date(conflict.res_end).getHours()}:{new Date(conflict.res_end).getMinutes()}</p>)}
             </Alert>
 
             <Button variant="primary" type="submit">
