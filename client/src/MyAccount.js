@@ -48,9 +48,20 @@ console.log(reservations);
 
     const handleEnd = async id => {
         try {
-            console.log("we trying to end");
+            const body = {
+                res_id: id,
+                student_id: userProfile.googleID
+            };
+            const response = await fetch("http://localhost:5000/endReservation", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify(body),
+            });
+            console.log("Ending Reservation at:\n", response);
+
+            //window.location = "/";
         } catch (err) {
-            console.error(err.message);  
+            console.error(err.message);
         }
     }
     const handleCancel = async id => {
@@ -112,7 +123,7 @@ console.log(reservations);
                                     <th>Reservation ID</th>
                                     <th>Time From</th>
                                     <th>Time To</th>
-                                    <th>End</th>
+                                    <th>Check Out</th>
                                     <th>Cancel</th>
                                 </tr>
                             </thead>
@@ -123,18 +134,18 @@ console.log(reservations);
                                         <td>{res.res_start}</td>
                                         <td>{res.res_end}</td>
                                         <td>
-                                            {(today>new Date(res.res_start)&&(today<new Date(res.res_end))) ? <button 
+                                            {(today>=new Date(res.res_start)&&(today<=new Date(res.res_end))) ? <button 
                                             className="btn btn-primary" 
                                             onClick={() => handleEnd(res.res_id)}>
                                                 End
                                             </button> : <></>}
                                         </td>
                                         <td>
-                                            <button 
+                                            {today<=new Date(res.res_start) ? <button 
                                             className="btn btn-danger" 
                                             onClick={() => handleCancel(res.res_id)}>
                                                 Cancel
-                                            </button>
+                                            </button> : <></>}
                                         </td>
                                     </tr>
                                 ))}
