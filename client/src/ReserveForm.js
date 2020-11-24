@@ -173,7 +173,7 @@ export default function ReserveForm(props) {
                   value={timeFrom}
                   onChange={(e) => setTimeFrom(e.target.value)}
                 >
-                  <Form.Control required type="time" min={currentTime}/>
+                  <Form.Control required type="time" min={todaysDate==date ? currentTime : "00:00"}/>
                   <Form.Control.Feedback type="invalid">
                     Time must be after current time.
                   </Form.Control.Feedback>
