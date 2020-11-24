@@ -22,6 +22,30 @@ export default function MyReservations(props) {
             console.error(err.message);
         }
     }
+
+    function displayDate(date) {
+        const day = date.getDate();
+        const month = date.getMonth() + 1; //JS weirdness: jan is 0
+        const year = date.getFullYear();
+
+        return '' + year + '/' + (month > 9 ? month : '0' + month) + '/' + (day > 9 ? day : '0' + day);
+    }
+
+    function displayTime(date) {
+        var hours = date.getHours();
+        const minutes = date.getMinutes();
+        const pm = hours > 11 ? true : false;
+
+        if (hours > 12) {
+            hours -= 12;
+        }
+        else if (hours === 0) {
+            hours = 12;
+        }
+        
+        return '' + hours + ':' + (minutes > 9 ? minutes : '0' + minutes) + ' ' + (pm ? 'PM' : 'AM');
+    }
+
     useEffect(() => {
         getReservations(userProfile.googleID);
     }, []);
@@ -94,6 +118,7 @@ export default function MyReservations(props) {
                                 <thead>
                                     <tr>
                                         <th>Reservation ID</th>
+                                        <th>Date</th>
                                         <th>Time From</th>
                                         <th>Time To</th>
                                         <th>Check Out</th>
@@ -105,8 +130,9 @@ export default function MyReservations(props) {
                                         today <= new Date(res.res_end) ?
                                             <tr key={res.res_id}>
                                                 <td>{res.res_id}</td>
-                                                <td>{res.res_start}</td>
-                                                <td>{res.res_end}</td>
+                                                <td>{displayDate(new Date(res.res_start))}</td>
+                                                <td>{displayTime(new Date(res.res_start))}</td>
+                                                <td>{displayTime(new Date(res.res_end))}</td>
                                                 <td>
                                                     {(today >= new Date(res.res_start) && (today <= new Date(res.res_end))) ? <button
                                                         className="btn btn-primary"
