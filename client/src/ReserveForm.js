@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Form, Image, Button, Row, Col, Alert } from "react-bootstrap";
+import { Form, Image, Button, Row, Col, Alert , DatePicker} from "react-bootstrap";
 import space1 from "./img/space1.jpg";
 import { useParams } from "react-router-dom";
 
@@ -38,20 +38,21 @@ export default function ReserveForm(props) {
   var minLimit = 15;
   var maxLimit = 120;
 
+  var today = new Date();
+  var todaysDate = today.getFullYear() + '-' + (today.getMonth() + 1) + '-' + today.getDate();
+  var currentTime = today.toLocaleTimeString('en-GB', { hour: '2-digit', minute: '2-digit' });
+
   //handling submit function
   const handleSubmit = async (event) => {
     event.preventDefault();
     const form = event.currentTarget;
 
-    var today = new Date();
-    var todaysDate = today.getFullYear() + '-' + (today.getMonth() + 1) + '-' + today.getDate();
     const getTime = time => new Date(2020, 12, 2, time.substring(0, 2), time.substring(3, 5), 0, 0);
 
     //validity forces user to enter proper input
     if (form.checkValidity() === false) {
       event.preventDefault();
       event.stopPropagation();
-      setShowInvalid(true);
     }
     //doesn't allow reservation if time range longer than 2 hours or shorter than 15 mins
     else if (getTime(timeTo) - getTime(timeFrom) > 60000 * maxLimit || getTime(timeTo) - getTime(timeFrom) < 60000 * minLimit) {
@@ -160,9 +161,9 @@ export default function ReserveForm(props) {
                   value={date}
                   onChange={(e) => setDate(e.target.value)}
                 >
-                  <Form.Control required type="date" />
+                  <Form.Control required type="date" min={todaysDate}/>
                   <Form.Control.Feedback type="invalid">
-                    Please provide a valid date.
+                    Current date is the earliest date allowed.
                   </Form.Control.Feedback>
                 </Form.Group>
               </Form.Group>
@@ -172,9 +173,9 @@ export default function ReserveForm(props) {
                   value={timeFrom}
                   onChange={(e) => setTimeFrom(e.target.value)}
                 >
-                  <Form.Control required type="time" />
+                  <Form.Control required type="time" min={todaysDate==date ? currentTime : "00:00"}/>
                   <Form.Control.Feedback type="invalid">
-                    Please provide a valid time.
+                    Time must be after current time.
                   </Form.Control.Feedback>
                 </Form.Group>
               </Form.Group>
@@ -184,9 +185,9 @@ export default function ReserveForm(props) {
                   value={timeTo}
                   onChange={(e) => setTimeTo(e.target.value)}
                 >
-                  <Form.Control required type="time" />
+                  <Form.Control required type="time" min={timeFrom}/>
                   <Form.Control.Feedback type="invalid">
-                    Please provide a valid time.
+                    Time must be after time from.
                   </Form.Control.Feedback>
                 </Form.Group>
               </Form.Group>
