@@ -141,7 +141,7 @@ function App() {
 
         <Switch>
           <Route path="/" exact component={Main} />
-          <Route path="/:resID/Confirmation" exact component={Confirmation} />
+          <Route path="/:building/:resID/Confirmation" exact component={Confirmation} />
           <Route path="/admin" component={TestButton} />
           <Route
             path="/building/:building"

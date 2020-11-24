@@ -16,6 +16,9 @@ code {
   position: relative;
   text-align: center;
   color: white;
+  text-shadow: 0 0 10px #000000, 0 0 15px #770000;
+  font-family: Helvetica, sans-serif;
+  font-size: 110%;
 }
 
 /* Centered text */

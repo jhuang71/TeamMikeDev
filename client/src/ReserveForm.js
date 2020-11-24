@@ -92,7 +92,7 @@ export default function ReserveForm(props) {
           res_ID = jsonData.data.reservation.res_id;
 
           //redirect to confirmation page with res_ID
-          const confURL = "/" + res_ID + "/Confirmation";
+          const confURL = "/" + id.building + "/" + res_ID + "/Confirmation";
           window.location = confURL;
         }
         else if (response.status === 409) {
