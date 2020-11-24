@@ -121,6 +121,7 @@ export default function MyReservations(props) {
                                         <th>Date</th>
                                         <th>Time From</th>
                                         <th>Time To</th>
+                                        <th>Location</th>
                                         <th>Check Out</th>
                                         <th>Cancel</th>
                                     </tr>
@@ -133,6 +134,7 @@ export default function MyReservations(props) {
                                                 <td>{displayDate(new Date(res.res_start))}</td>
                                                 <td>{displayTime(new Date(res.res_start))}</td>
                                                 <td>{displayTime(new Date(res.res_end))}</td>
+                                                <td>{res.building_name + ' - ' + res.space_loc + ' - Space #' + res.space_id}</td>
                                                 <td>
                                                     {(today >= new Date(res.res_start) && (today <= new Date(res.res_end))) ? <button
                                                         className="btn btn-primary"
@@ -160,6 +162,7 @@ export default function MyReservations(props) {
                                         <th>Date</th>
                                         <th>Time From</th>
                                         <th>Time To</th>
+                                        <th>Location</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -170,6 +173,7 @@ export default function MyReservations(props) {
                                                 <td>{displayDate(new Date(res.res_start))}</td>
                                                 <td>{displayTime(new Date(res.res_start))}</td>
                                                 <td>{displayTime(new Date(res.res_end))}</td>
+                                                <td>{res.building_name + ' - ' + res.space_loc + ' - Space #' + res.space_id}</td>
                                             </tr> : <></>
                                     ))}
                                 </tbody>

@@ -229,7 +229,10 @@ app.get("/reservations/:studentId", async(req, res) => {
     try {
       const {studentId} = req.params;
       const reservation = await pool.query(
-        "SELECT * FROM reservation WHERE student_id = $1 ORDER BY res_start", [studentId]);
+        "SELECT reservation.res_id, reservation.res_start, reservation.res_end, building.building_name, study_space.space_id, study_space.space_loc \
+        FROM reservation, study_space, building \
+        WHERE reservation.student_id = $1 AND building.building_id = study_space.building_id AND study_space.space_id = reservation.space_id \
+        ORDER BY res_start", [studentId]);
       
       res.json(reservation.rows);
     } catch (err) {
