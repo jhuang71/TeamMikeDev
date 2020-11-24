@@ -157,6 +157,7 @@ export default function MyReservations(props) {
                                 <thead>
                                     <tr>
                                         <th>Reservation ID</th>
+                                        <th>Date</th>
                                         <th>Time From</th>
                                         <th>Time To</th>
                                     </tr>
@@ -166,8 +167,9 @@ export default function MyReservations(props) {
                                         today > new Date(res.res_end) ?
                                             <tr key={res.res_id}>
                                                 <td>{res.res_id}</td>
-                                                <td>{res.res_start}</td>
-                                                <td>{res.res_end}</td>
+                                                <td>{displayDate(new Date(res.res_start))}</td>
+                                                <td>{displayTime(new Date(res.res_start))}</td>
+                                                <td>{displayTime(new Date(res.res_end))}</td>
                                             </tr> : <></>
                                     ))}
                                 </tbody>
