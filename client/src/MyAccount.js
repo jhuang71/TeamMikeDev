@@ -117,7 +117,6 @@ export default function MyReservations(props) {
                             <table className="table text=center mb-0">
                                 <thead>
                                     <tr>
-                                        <th>Reservation ID</th>
                                         <th>Date</th>
                                         <th>Time From</th>
                                         <th>Time To</th>
@@ -130,7 +129,6 @@ export default function MyReservations(props) {
                                     {reservations.map(res => (
                                         today <= new Date(res.res_end) ?
                                             <tr key={res.res_id}>
-                                                <td>{res.res_id}</td>
                                                 <td>{displayDate(new Date(res.res_start))}</td>
                                                 <td>{displayTime(new Date(res.res_start))}</td>
                                                 <td>{displayTime(new Date(res.res_end))}</td>
@@ -158,7 +156,6 @@ export default function MyReservations(props) {
                             <table className="table text=center mb-0">
                                 <thead>
                                     <tr>
-                                        <th>Reservation ID</th>
                                         <th>Date</th>
                                         <th>Time From</th>
                                         <th>Time To</th>
@@ -169,7 +166,6 @@ export default function MyReservations(props) {
                                     {reservations.map(res => (
                                         today > new Date(res.res_end) ?
                                             <tr key={res.res_id}>
-                                                <td>{res.res_id}</td>
                                                 <td>{displayDate(new Date(res.res_start))}</td>
                                                 <td>{displayTime(new Date(res.res_start))}</td>
                                                 <td>{displayTime(new Date(res.res_end))}</td>
