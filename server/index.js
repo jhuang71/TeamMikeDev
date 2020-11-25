@@ -47,6 +47,21 @@ app.post("/addUser", async (req, res) => {
 //building page
 app.get("/spaces/:id", async (req, res) => {
     try {
+        function displayTime(date) {
+            var hours = date.getHours();
+            const minutes = date.getMinutes();
+            const pm = hours > 11 ? true : false;
+    
+            if (hours > 12) {
+                hours -= 12;
+            }
+            else if (hours === 0) {
+                hours = 12;
+            }
+            
+            return '' + hours + ':' + (minutes > 9 ? minutes : '0' + minutes) + ' ' + (pm ? 'PM' : 'AM');
+        }
+
         const now = Date.now();
 
         const { id } = req.params;
@@ -87,7 +102,7 @@ app.get("/spaces/:id", async (req, res) => {
                     result.text = "Available"
                 }
                 else if (result.time < now + (2 * 60 * 60 * 1000)) {
-                    result.text = "Available until " + new Date(result.time).getHours() + ":" + new Date(result.time).getMinutes();
+                    result.text = "Available until " + displayTime(new Date(result.time));
                 }
                 else {
                     result.text = "Available"
@@ -95,7 +110,7 @@ app.get("/spaces/:id", async (req, res) => {
             }
             else {
                 if (result.time < now + (2 * 60 * 60 * 1000)) {
-                    result.text = "Unavailable until " + new Date(result.time).getHours() + ":" + new Date(result.time).getMinutes();
+                    result.text = "Unavailable until " + displayTime(new Date(result.time));
                 }
                 else {
                     result.text = "Unavailable";
@@ -214,7 +229,10 @@ app.get("/reservations/:studentId", async(req, res) => {
     try {
       const {studentId} = req.params;
       const reservation = await pool.query(
-        "SELECT * FROM reservation WHERE student_id = $1 ORDER BY res_start", [studentId]);
+        "SELECT reservation.res_id, reservation.res_start, reservation.res_end, building.building_name, study_space.space_id, study_space.space_loc \
+        FROM reservation, study_space, building \
+        WHERE reservation.student_id = $1 AND building.building_id = study_space.building_id AND study_space.space_id = reservation.space_id \
+        ORDER BY res_start", [studentId]);
       
       res.json(reservation.rows);
     } catch (err) {

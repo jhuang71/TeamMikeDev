@@ -42,6 +42,21 @@ export default function ReserveForm(props) {
   var todaysDate = today.getFullYear() + '-' + (today.getMonth() + 1) + '-' + today.getDate();
   var currentTime = today.toLocaleTimeString('en-GB', { hour: '2-digit', minute: '2-digit' });
 
+  function displayTime(date) {
+    var hours = date.getHours();
+    const minutes = date.getMinutes();
+    const pm = hours > 11 ? true : false;
+
+    if (hours > 12) {
+        hours -= 12;
+    }
+    else if (hours === 0) {
+        hours = 12;
+    }
+    
+    return '' + hours + ':' + (minutes > 9 ? minutes : '0' + minutes) + ' ' + (pm ? 'PM' : 'AM');
+  }
+
   //handling submit function
   const handleSubmit = async (event) => {
     event.preventDefault();
@@ -205,7 +220,7 @@ export default function ReserveForm(props) {
               <p>
                 The time entered conflicts with the following existing reservations. Please enter a new reservation.
               </p>
-              {conflicts.map((conflict) => <p>{new Date(conflict.res_start).getHours()}:{new Date(conflict.res_start).getMinutes()} - {new Date(conflict.res_end).getHours()}:{new Date(conflict.res_end).getMinutes()}</p>)}
+              {conflicts.map((conflict) => <p>{displayTime(new Date(conflict.res_start))} - {displayTime(new Date(conflict.res_end))}</p>)}
             </Alert>
 
             <Button variant="primary" type="submit">
